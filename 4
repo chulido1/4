@@ -97,6 +97,15 @@ CREATE TABLE IF NOT EXISTS reviews (
     CONSTRAINT chk_reviews_rating CHECK (rating BETWEEN 1 AND 5)
 ) ENGINE=InnoDB;
 
+INSERT INTO users (login, password_hash, full_name, phone, email, role) VALUES
+('Admin26', '$2y$10$u9MWhOTVbWVe2/z6JODsRuhe1FfqBkbDIpF.0Ppx0L1nZHwiAqazm', 'Администратор сайта', '+7 (900) 000-00-00', 'admin@banquetam.net', 'admin')
+ON DUPLICATE KEY UPDATE
+    password_hash = VALUES(password_hash),
+    full_name = VALUES(full_name),
+    phone = VALUES(phone),
+    email = VALUES(email),
+    role = VALUES(role);
+
 INSERT INTO rooms (id, name, type, description) VALUES
 (1, 'Зал «Премиум»', 'Зал', 'Просторный зал для торжественных мероприятий.'),
 (2, 'Ресторан «Классика»', 'Ресторан', 'Уютный ресторан с готовым банкетным меню.'),
